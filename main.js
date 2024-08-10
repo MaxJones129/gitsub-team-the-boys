@@ -146,7 +146,7 @@ const reposOnDom = (array) => {
   `<div class="card" style="width: 18rem;">
     <h3 class="repo-name">${repo.name}</h3>
     <h3 class="repo-description">${repo.description}</h3>
-    <button class="btn btn-danger" id="delete--${repo.id}"></button>
+    <button class="btn btn-danger" id="delete--${repo.id}">Delete</button>
   </div>`;
   }
 
@@ -156,29 +156,37 @@ const reposOnDom = (array) => {
 
 // Creating createRepo student function to add new repo cards
 
-// const createRepo = (e) => {
-//   e.preventDefault;
-//   const newRepoObj = {
-//     id: repos.length +1,
-//     name: document.querySelector("#exampleFormControlInput1").value,
-//     description: document.querySelector("#exampleFormControlInput1").value
-//   };
-//   repos.push(newRepoObj);
-//   reposOnDom(repos);
-//   form.reset();
-// }
-// form.addEventListener("submit", createRepo);
+const form = document.querySelector("form");
 
-// // Creating function to delete repo card
+const createRepo = (e) => {
+  e.preventDefault;
+  const newRepoObj = {
+    id: repos.length +1,
+    name: document.querySelector("#exampleFormControlInput1").value,
+    description: document.querySelector("#exampleFormControlInput1").value
+  };
+  repos.push(newRepoObj);
+  reposOnDom(repos);
+  form.reset();
+}
+form.addEventListener("submit", createRepo);
 
-// const repoCards = document.querySelector("#repoCards");
-// repoCards.addEventListener("click", (e) => {
-//   if (e.target.id.includes("delete")) {
-//     const [, id] = e.target.id.split("--");
-//     const index = repos.findIndex((e) => e.id === Number(id));
-//     repos.splice(index, 1);
-//     reposOnDom(repos);
-//   }
-// })
+// Creating function to delete repo card
+
+const repoCards = document.querySelector("#repoCards");
+repoCards.addEventListener("click", (e) => {
+  if (e.target.id.includes("delete")) {
+    const [, id] = e.target.id.split("--");
+    const index = repos.findIndex((e) => e.id === Number(id));
+    repos.splice(index, 1);
+    reposOnDom(repos);
+  }
+})
+
+const reposSubmit = document.querySelector("#reposSubmitBtn");
+
+reposSubmit.addEventListener("click", () => {
+  reposOnDom(repos);
+});
 
 reposOnDom(repos);
